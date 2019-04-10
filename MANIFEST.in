@@ -1,0 +1,4 @@
+include gamr/schema.sql
+graft gamr/static
+graft gamr/templates
+global-exclude *.pyc
