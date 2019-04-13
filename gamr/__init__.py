@@ -3,7 +3,7 @@ import os
 from flask import Flask
 from . import db
 from . import auth
-from . import blog
+from . import characters
 
 
 def create_app(test_config=None):
@@ -27,19 +27,15 @@ def create_app(test_config=None):
     except OSError:
         pass
 
-    # a simple page that says hello
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
-
     # Initialize our database / db functions
     db.init_app(app)
 
     # Register our auth blueprint
     app.register_blueprint(auth.bp)
 
-    # Register the blog blueprint
-    app.register_blueprint(blog.bp)
+    # Register the character blueprint
+    app.register_blueprint(characters.bp)
+
     app.add_url_rule('/', endpoint='index')
 
     return app

@@ -15,6 +15,7 @@ bp = Blueprint('auth', __name__, url_prefix='/auth')
 # Register user view
 @bp.route('/register', methods=('GET', 'POST'))
 def register():
+    # This is data getting sent to us
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
@@ -42,6 +43,7 @@ def register():
 
         flash(error)
 
+    # This is data getting send to the user ie. GET
     return render_template('auth/register.html')
 
 
