@@ -11,7 +11,7 @@ bp = Blueprint('characters', __name__)
 
 
 @bp.route('/')
-def index():
+def character_index():
     db = get_db()
     # Show all characters created by the given user
     characters = db.execute(
@@ -21,7 +21,7 @@ def index():
         ' ORDER BY c.created DESC'
     ).fetchall()
 
-    return render_template('characters/index.html', characters=characters)
+    return render_template('characters/character_index.html', characters=characters)
 
 
 @bp.route('/create', methods=('GET', 'POST'))
@@ -47,7 +47,7 @@ def create():
             )
             db.commit()
 
-            return redirect(url_for('characters.index'))
+            return redirect(url_for('characters.character_index'))
 
     return render_template('characters/create.html')
 
@@ -91,7 +91,7 @@ def update(id):
                 (character_name, id)
             )
             db.commit()
-            return redirect(url_for('characters.index'))
+            return redirect(url_for('characters.character_index'))
 
     return render_template('characters/update.html', character=character)
 
@@ -103,4 +103,4 @@ def delete(id):
     db = get_db()
     db.execute('DELETE FROM character WHERE id = ?', (id,))
     db.commit()
-    return redirect(url_for('characters.index'))
+    return redirect(url_for('characters.character_index'))

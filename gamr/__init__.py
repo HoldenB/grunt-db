@@ -36,6 +36,6 @@ def create_app(test_config=None):
     # Register the character blueprint
     app.register_blueprint(characters.bp)
 
-    app.add_url_rule('/', endpoint='index')
+    app.add_url_rule('/', endpoint='character_index')
 
     return app

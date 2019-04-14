@@ -67,7 +67,7 @@ def login():
         if error is None:
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect(url_for('characters.character_index'))
 
         flash(error)
 
@@ -90,7 +90,7 @@ def load_logged_in_user():
 @bp.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('characters.character_index'))
 
 
 def login_required(view):
