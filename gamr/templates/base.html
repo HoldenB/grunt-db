@@ -1,6 +1,8 @@
 <!doctype html>
-<title>{% block title %}{% endblock %} - GamrDB</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='user-profiles-list-basic.css') }}">
+<title>{% block title %}{% endblock %} - GamrDB</title>
 <nav>
   <h1><a href="{{ url_for('characters.character_index') }}"> GamrDB</h1></a>
   <ul>
