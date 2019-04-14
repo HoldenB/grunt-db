@@ -2,6 +2,7 @@ venv/
 
 *.pyc
 *.idea
+*.sqlite
 __pycache__/
 
 instance/
