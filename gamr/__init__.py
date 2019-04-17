@@ -4,6 +4,8 @@ from flask import Flask
 from . import db
 from . import auth
 from . import characters
+from . import weapons
+from . import zones
 
 
 def create_app(test_config=None):
@@ -30,12 +32,13 @@ def create_app(test_config=None):
     # Initialize our database / db functions
     db.init_app(app)
 
-    # Register our auth blueprint
+    # Register blueprints
     app.register_blueprint(auth.bp)
-
-    # Register the character blueprint
     app.register_blueprint(characters.bp)
+    app.register_blueprint(weapons.bp)
+    app.register_blueprint(zones.bp)
 
+    # Endpoint will default to the character_index
     app.add_url_rule('/', endpoint='character_index')
 
     return app

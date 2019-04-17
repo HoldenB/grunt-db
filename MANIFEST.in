@@ -1,4 +1,4 @@
-include gamr/schema.sql
+include gamr/schemas/game_db_schema.sql
 graft gamr/static
 graft gamr/templates
 global-exclude *.pyc

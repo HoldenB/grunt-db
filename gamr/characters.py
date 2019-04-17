@@ -15,7 +15,8 @@ def character_index():
     db = get_db()
     # Show all characters created by the given user
     characters = db.execute(
-        'SELECT c.id, e_wep_id, user_id, c.created, hours_played, character_name, character_level, character_kills, u.username, e.weapon_name, rarity, zone_name'
+        'SELECT c.id, e_wep_id, user_id, c.created, hours_played, character_name,'
+        ' character_level, character_kills, u.username, e.weapon_name, rarity, zone_name'
         ' FROM character c JOIN user u JOIN equipped_weapon e JOIN zone z'
         ' ON c.user_id = u.id AND c.e_wep_id = e.id AND e.zone_id = z.id'
         ' ORDER BY c.created DESC'
@@ -41,7 +42,8 @@ def create():
             # When a new character is created, we will default
             # the character to the starting zone with a starter weapon
             db.execute(
-                'INSERT INTO character (e_wep_id, user_id, hours_played, character_name, character_level, character_kills)'
+                'INSERT INTO character (e_wep_id, user_id, hours_played, character_name,'
+                ' character_level, character_kills)'
                 ' VALUES (?, ?, ?, ?, ?, ?)',
                 (1, g.user['id'], 0, character_name, 1, 0)
             )
@@ -54,7 +56,8 @@ def create():
 
 def get_character(id, check_user=True):
     character = get_db().execute(
-        'SELECT c.id, e_wep_id, user_id, created, hours_played, character_name, character_level, character_kills'
+        'SELECT c.id, e_wep_id, user_id, created, hours_played, character_name,'
+        ' character_level, character_kills'
         ' FROM character c JOIN user u ON c.user_id = u.id'
         ' WHERE c.id = ?',
         (id,)

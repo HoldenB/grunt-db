@@ -1,5 +1,5 @@
 html {
-    font-family: sans-serif;
+    font-family: Arial, Helvetica, sans-serif;
     background: #eee;
     padding: 1rem;
   }
@@ -11,7 +11,7 @@ html {
   }
   
   h1, h2, h3, h4, h5, h6 {
-    font-family: serif;
+    font-family: Arial, Helvetica, sans-serif;
     color: #377ba8;
     margin: 1rem 0;
   }
@@ -131,4 +131,10 @@ html {
   input[type=submit] {
     align-self: start;
     min-width: 10em;
+  }
+
+  .link-text-1 {
+    display: inline;
+    text-align: center;
+    margin-right: 120px;
   }
