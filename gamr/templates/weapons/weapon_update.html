@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Edit "{{ weapon['weapon_name'] }}"{% endblock %}</h1>
+{% endblock %}
+
+{% block content %}
+  <form method="post">
+    <label for="weapon_name">Weapon Name</label>
+    <input name="weapon_name" id="weapon_name"
+      value="{{ request.form['weapon_name'] or weapon['weapon_name'] }}" required>
+    <input type="submit" value="Save">
+  </form>
+  <hr>
+  <form action="{{ url_for('weapons.delete', id=weapon['id']) }}" method="post">
+    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this weapon?');">
+  </form>
+{% endblock %}

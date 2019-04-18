@@ -21,10 +21,10 @@
         <div>
           <h1>{{ character['character_name'] }}</h1>
           <div class="about">by: {{ character['username'] }} on: {{ character['created'].strftime('%Y-%m-%d') }}</div>
-          <div class="stats_2">Kills: {{ character['character_kills'] }} | Level: {{ character['character_level'] }}</div>
-          <div class="stats_1">Time Played: {{ character['hours_played'] }}</div>
-          <div class="weapon_1">Weapon: {{ character['weapon_name'] }} | Rarity: {{ character['rarity'] }}</div>
-          <div class="weapon_2">Location: {{ character['zone_name'] }}</div>
+          <div>Kills: {{ character['character_kills'] }} | Level: {{ character['character_level'] }}</div>
+          <div>Time Played: {{ character['hours_played'] }}</div>
+          <div>Weapon: {{ character['weapon_name'] }} | Rarity: {{ character['rarity'] }}</div>
+          <div>Location: {{ character['zone_name'] }}</div>
         </div>
         {% if g.user['id'] == character['user_id'] %}
           <a class="action" href="{{ url_for('characters.update', id=character['id']) }}">Edit</a>

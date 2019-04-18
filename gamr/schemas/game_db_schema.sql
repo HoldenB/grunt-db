@@ -13,31 +13,35 @@ CREATE TABLE user (
 -- Zone table
 CREATE TABLE zone (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     num_characters INTEGER NOT NULL,
     num_creatures INTEGER NOT NULL,
     zone_name TEXT UNIQUE NOT NULL,
     zone_level_range TEXT NOT NULL,
-    difficulty TEXT NOT NULL
+    difficulty TEXT NOT NULL,
+    FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
 -- User "Equipped Weapon Slot" table
 CREATE TABLE equipped_weapon (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
+    user_id INTEGER,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     zone_id INTEGER NOT NULL,
     weapon_name TEXT UNIQUE NOT NULL,
     weapon_level INTEGER NOT NULL,
     weapon_type TEXT NOT NULL,
     rarity TEXT NOT NULL,
-    FOREIGN KEY (zone_id) REFERENCES zone (id)
+    FOREIGN KEY (zone_id) REFERENCES zone (id),
+    FOREIGN KEY (user_id) REFERENCES user (id)
 );
 
 -- Character table
 CREATE TABLE character (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     e_wep_id INTEGER NOT NULL,
-    user_id INTEGER NOT NULL,
+    user_id INTEGER,
     created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
     hours_played REAL NOT NULL,
     character_name TEXT UNIQUE NOT NULL,
