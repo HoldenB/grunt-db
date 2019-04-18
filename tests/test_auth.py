@@ -14,7 +14,7 @@ def test_register(client, app):
 
     with app.app_context():
         assert get_db().execute(
-            "select * from user where username = 'a'",
+            "SELECT * from user WHERE username = 'a'",
         ).fetchone() is not None
 
 
@@ -39,7 +39,8 @@ def test_login(client, auth):
 
     with client:
         client.get('/')
-        assert session['user_id'] == 1
+        # We need to account for our "default" users
+        assert session['user_id'] == 4
         assert g.user['username'] == 'test'
 
 
