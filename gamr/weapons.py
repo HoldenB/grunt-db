@@ -79,7 +79,7 @@ def create():
         error = None
 
         if not weapon.valid():
-            error = 'All fields are required to crate a weapon.'
+            error = 'All fields are required to create a weapon.'
 
         if error is not None:
             flash(error)
@@ -116,20 +116,22 @@ def update(id):
     weapon = get_equipped_weapon(id)
 
     if request.method == 'POST':
-        weapon_name = request.form['weapon_name']
+        weapon = WeaponRequest(request)
         error = None
 
-        if not weapon_name:
-            error = 'Weapon name is required.'
+        if not weapon.valid ():
+            error = 'All fields are required to update a weapon.'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'UPDATE equipped_weapon SET weapon_name = ?'
+                'UPDATE equipped_weapon SET zone_id = ?, weapon_name = ?,'
+                ' weapon_level = ?, weapon_type = ?, rarity = ?'
                 ' WHERE id = ?',
-                (weapon_name, id)
+                (weapon.zone_id, weapon.weapon_name, weapon.weapon_level,
+                    weapon.weapon_type, weapon.rarity, id)
             )
             db.commit()
             return redirect(url_for('weapons.weapon_index'))
