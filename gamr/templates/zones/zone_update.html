@@ -29,11 +29,27 @@
     </div>
     <div class="form-group">
       <label for="difficulty">Zone Difficulty: </label>
-      <select name="difficulty" value="{{ request.form['difficulty'] or zone['difficulty'] }}" required>
-        <option value="Easy">Easy</option>
-        <option value="Medium">Medium</option>
-        <option value="Hard">Hard</option>
-        <option value="Very Hard">Very Hard</option>
+      <select name="difficulty" required>
+        {% if request.form['difficulty'] == 'Easy' or zone['difficulty'] == 'Easy' %}
+          <option selected value="Easy">Easy</option>
+        {% else %}
+          <option value="Easy">Easy</option>
+        {% endif %}
+        {% if request.form['difficulty'] == 'Medium' or zone['difficulty'] == 'Medium' %}
+          <option selected value="Medium">Medium</option>
+        {% else %}
+          <option value="Medium">Medium</option>
+        {% endif %}
+        {% if request.form['difficulty'] == 'Hard' or zone['difficulty'] == 'Hard' %}
+          <option selected value="Hard">Hard</option>
+        {% else %}
+          <option value="Hard">Hard</option>
+        {% endif %}
+        {% if request.form['difficulty'] == 'Very Hard' or zone['difficulty'] == 'Very Hard' %}
+          <option selected value="Very Hard">Very Hard</option>
+        {% else %}
+          <option value="Very Hard">Very Hard</option>
+        {% endif %}
       </select>
     </div>
     <input type="submit" value="Save">
