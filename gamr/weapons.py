@@ -30,14 +30,14 @@ class WeaponRequest:
 
     def valid(self):
         return(self.weapon_name and self.weapon_type and self.weapon_level
-                and self.rarity)
+                and self.rarity and self.zone_id)
 
 
 def get_equipped_weapon(id, check_weapon=True):
     weapon = get_db().execute(
-        'SELECT e.id, e.user_id, created, weapon_name'
-        ' weapon_level, weapon_type, rarity'
-        ' FROM equipped_weapon e JOIN user u ON e.user_id = u.id'
+        'SELECT *'
+        ' FROM equipped_weapon e JOIN user u'
+        ' ON e.user_id = u.id'
         ' WHERE e.id = ?',
         (id,)
     ).fetchone()
@@ -134,7 +134,22 @@ def update(id):
             db.commit()
             return redirect(url_for('weapons.weapon_index'))
 
-    return render_template('weapons/weapon_update.html', weapon=weapon)
+    # On GET request:
+    # Get the zone name from the weapon's zone_id
+    zone_name = get_db().execute(
+            'SELECT zone_name FROM zone WHERE id=?',
+            (weapon['zone_id'],)
+        ).fetchone()
+
+    # Get all of the available zone names
+    db = get_db()
+    zone_names = db.execute (
+        'SELECT z.zone_name'
+        ' FROM zone z'
+    ).fetchall()
+
+    return render_template('weapons/weapon_update.html',
+        weapon=weapon, zone_name=zone_name[0], zone_names=zone_names)
 
 
 @bp.route('/<int:id>/weapons/delete', methods=('POST',))
