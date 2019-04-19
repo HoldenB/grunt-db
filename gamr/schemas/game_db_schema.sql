@@ -18,7 +18,8 @@ CREATE TABLE zone (
     num_characters INTEGER NOT NULL,
     num_creatures INTEGER NOT NULL,
     zone_name TEXT UNIQUE NOT NULL,
-    zone_level_range TEXT NOT NULL,
+    zone_level_range_min INTEGER NOT NULL,
+    zone_level_range_max INTEGER NOT NULL,
     difficulty TEXT NOT NULL,
     FOREIGN KEY (user_id) REFERENCES user (id)
 );
@@ -54,16 +55,16 @@ CREATE TABLE character (
 ------------------------------------------------------------------------------------------
 -- ZONES
 -- Premade zone 1
-INSERT INTO zone (num_characters, num_creatures, zone_name, zone_level_range, difficulty)
-VALUES ('300', '300', 'Elwynn Forest', '1-20', 'Easy');
+INSERT INTO zone (num_characters, num_creatures, zone_name, zone_level_range_min, zone_level_range_max, difficulty)
+VALUES ('300', '300', 'Elwynn Forest', 1, 20, 'Easy');
 
 -- Premade zone 2
-INSERT INTO zone (num_characters, num_creatures, zone_name, zone_level_range, difficulty)
-VALUES ('100', '100', 'Prateek''s Valley', '90-100', 'Very Hard');
+INSERT INTO zone (num_characters, num_creatures, zone_name, zone_level_range_min, zone_level_range_max, difficulty)
+VALUES ('100', '100', 'Prateek''s Valley', 90, 100, 'Very Hard');
 
 -- Premade zone 3
-INSERT INTO zone (num_characters, num_creatures, zone_name, zone_level_range, difficulty)
-VALUES ('40', '250', 'The Green Hills', '50-60', 'Moderately Hard');
+INSERT INTO zone (num_characters, num_creatures, zone_name, zone_level_range_min, zone_level_range_max, difficulty)
+VALUES ('40', '250', 'The Green Hills', 50, 60, 'Moderately Hard');
 
 ------------------------------------------------------------------------------------------
 -- WEAPONS

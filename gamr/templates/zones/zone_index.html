@@ -21,7 +21,7 @@
         <div>
           <h1>{{ zone['zone_name'] }}</h1>
           <div class="about">created on: {{ zone['created'] }}</div>
-          <div>Level Range: {{ zone['zone_level_range'] }} | Difficulty: {{ zone['difficulty'] }}</div>
+          <div>Level Range: {{ zone['zone_level_range_min'] }} - {{ zone['zone_level_range_max'] }} | Difficulty: {{ zone['difficulty'] }}</div>
           <div>Characters: {{ zone['num_characters'] }} | Creatures: {{ zone['num_creatures'] }}</div>
         </div>
       {% if g.user['id'] == zone['user_id'] %}

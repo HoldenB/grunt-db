@@ -1,18 +1,46 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Edit "{{ zone['zone_name'] }}"{% endblock %}</h1>
+<h1>{% block title %}Edit "{{ zone['zone_name'] }}"{% endblock %}</h1>
 {% endblock %}
 
 {% block content %}
-  <form method="post">
-    <label for="zone_name">Zone Name</label>
-    <input name="zone_name" id="zone_name"
-      value="{{ request.form['zone_name'] or zone['zone_name'] }}" required>
-    <input type="submit" value="Save">
-  </form>
-  <hr>
-  <form action="{{ url_for('zones.delete', id=zone['id']) }}" method="post">
-    <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this zone?');">
-  </form>
+<form method="post">
+  <label for="zone_name">Zone Name</label>
+  <input name="zone_name" id="zone_name"
+    value="{{ request.form['zone_name'] or zone['zone_name'] }}" required>
+  <div class="form-group">
+    <label for="num_creatures">Number of Creatures: </label>
+    <input type="number" name="num_creatures" min="1" max="9999"
+      value="{{ request.form['num_creatures'] or zone['num_creatures'] }}" required>
+  </div>
+  <div class="form-group">
+    <label for="num_characters">Number of Characters: </label>
+    <input type="number" name="num_characters" min="1" max="9999"
+      value="{{ request.form['num_characters'] or zone['num_characters'] }}" required>
+  </div>
+  <div class="form-group">
+    <label for="zone_level_range_min">Zone Level Min: </label>
+    <input type="number" name="zone_level_range_min" min="1" max="9999"
+      value="{{ request.form['zone_level_range_min'] or zone['zone_level_range_min'] }}" required>
+    <label for="zone_level_range_max">Zone Level Max: </label>
+    <input type="number" name="zone_level_range_max" min="1" max="9999"
+      value="{{ request.form['zone_level_range_max'] or zone['zone_level_range_max'] }}" required>
+  </div>
+  <div class="form-group">
+    <label for="difficulty">Zone Difficulty: </label>
+    <select name="difficulty" value="{{ request.form['difficulty'] or zone['difficulty'] }}" required>
+      <option value="Easy">Easy</option>
+      <option value="Medium">Medium</option>
+      <option value="Hard">Hard</option>
+      <option value="Very Hard">Very Hard</option>
+    </select>
+  </div>
+  <input type="submit" value="Save">
+</form>
+<hr>
+<form action="{{ url_for('zones.delete', id=zone['id']) }}" method="post">
+  <input class="danger" type="submit" value="Delete"
+    onclick="return confirm('Are you sure you want to delete this zone?');">
+</form>
 {% endblock %}
