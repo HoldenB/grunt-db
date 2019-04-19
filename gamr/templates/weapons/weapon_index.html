@@ -22,6 +22,7 @@
           <h1>{{ weapon['weapon_name'] }} | {{ weapon['weapon_type'] }}</h1>
           <div class="about">created on: {{ weapon['created'] }}</div>
           <div>Weapon Level: {{ weapon['weapon_level'] }} | Rarity: {{ weapon['rarity'] }}</div>
+          <div>Location: {{ weapon['zone_name'] }}</div>
         </div>
       {% if g.user['id'] == weapon['user_id'] %}
         <a class="action" href="{{ url_for('weapons.update', id=weapon['id']) }}">Edit</a>

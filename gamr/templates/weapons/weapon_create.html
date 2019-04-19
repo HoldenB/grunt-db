@@ -8,6 +8,31 @@
   <form method="post">
     <label for="weapon_name">Weapon Name</label>
     <input name="weapon_name" id="weapon_name" value="{{ request.form['weapon_name'] }}" required>
+    <label for="weapon_type">Weapon Type</label>
+    <input name="weapon_type" id="weapon_type" value="{{ request.form['weapon_type'] }}" required>
+    <div class="form-group">
+      <label for="weapon_level">Weapon Level: </label>
+      <input type="number" name="weapon_level" min="1" max="120"
+        value="{{ request.form['weapon_level'] }}" required>
+    </div>
+    <div class="form-group">
+      <label for="rarity">Rarity: </label>
+      <select name="rarity" value="{{ request.form['rarity'] }}" required>
+        <option value="Common">Common</option>
+        <option value="Uncommon">Uncommon</option>
+        <option value="Rare">Rare</option>
+        <option value="Epic">Epic</option>
+        <option value="Legendary">Legendary</option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="zone_name">Location: </label>
+      <select name="zone_name" required>
+        {% for name in zone_names %}
+          <option value="{{ name[0] }}">{{ name[0] }}</option>
+        {% endfor %}
+      </select>
+    </div>
     <input type="submit" value="Save">
   </form>
 {% endblock %}

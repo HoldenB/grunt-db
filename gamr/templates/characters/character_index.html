@@ -1,10 +1,10 @@
 {% extends 'base.html' %}
 
 {% block link1 %}
-<h1 class="link-text-1"><a href="{{ url_for('zones.zone_index') }}">Zones</h1></a>
+  <h1 class="link-text-1"><a href="{{ url_for('zones.zone_index') }}">Zones</h1></a>
 {% endblock %}
 {% block link2 %}
-<h1 class="link-text-1"><a href="{{ url_for('weapons.weapon_index') }}">Weapons</h1></a>
+  <h1 class="link-text-1"><a href="{{ url_for('weapons.weapon_index') }}">Weapons</h1></a>
 {% endblock %}
 
 {% block header %}
@@ -23,8 +23,7 @@
           <div class="about">by: {{ character['username'] }} on: {{ character['created'].strftime('%Y-%m-%d') }}</div>
           <div>Kills: {{ character['character_kills'] }} | Level: {{ character['character_level'] }}</div>
           <div>Time Played: {{ character['hours_played'] }}</div>
-          <div>Weapon: {{ character['weapon_name'] }} | Rarity: {{ character['rarity'] }}</div>
-          <div>Location: {{ character['zone_name'] }}</div>
+          <div>Weapon: {{ character['weapon_name'] }} | Rarity: {{ character['rarity'] }} | Location: {{ character['zone_name'] }}</div>
         </div>
         {% if g.user['id'] == character['user_id'] %}
           <a class="action" href="{{ url_for('characters.update', id=character['id']) }}">Edit</a>

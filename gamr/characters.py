@@ -34,7 +34,8 @@ def get_character(id, check_user=True):
 @bp.route('/')
 def character_index():
     db = get_db()
-    # Show all characters created by the given user
+    # Show all characters created by the given user along with their
+    # equipped weapons and the zone in which they are found
     characters = db.execute(
         'SELECT c.id, e_wep_id, c.user_id, c.created, hours_played, character_name,'
         ' character_level, character_kills, u.username, e.weapon_name, rarity, zone_name'

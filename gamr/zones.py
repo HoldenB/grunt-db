@@ -10,6 +10,7 @@ from gamr.db import get_db
 
 bp = Blueprint('zones', __name__)
 
+
 class ZoneRequest:
     def __init__(self, request):
         self.zone_name = request.form['zone_name']
@@ -19,8 +20,8 @@ class ZoneRequest:
         self.zone_level_range_max = request.form['zone_level_range_max']
         self.difficulty = request.form['difficulty']
 
-    def verify (self):
-        return (self.zone_name and self.num_creatures and self.num_characters
+    def valid(self):
+        return(self.zone_name and self.num_creatures and self.num_characters
                 and self.zone_level_range_min and self.zone_level_range_max)
 
 
@@ -64,7 +65,7 @@ def create():
         zone = ZoneRequest(request)
         error = None
 
-        if not zone.verify():
+        if not zone.valid():
             error = 'All fields are required to create a zone.'
 
         if error is not None:
@@ -94,8 +95,8 @@ def update(id):
         zone = ZoneRequest(request)
         error = None
 
-        if not zone.verify():
-            error = 'All fields are required to create a zone.'
+        if not zone.valid():
+            error = 'All fields are required to update a zone.'
 
         if error is not None:
             flash(error)
