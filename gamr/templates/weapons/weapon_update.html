@@ -19,19 +19,43 @@
     </div>
     <div class="form-group">
       <label for="rarity">Rarity: </label>
-      <select name="rarity" value="{{ request.form['rarity'] or weapon['rarity'] }}" required>
-        <option value="Common">Common</option>
-        <option value="Uncommon">Uncommon</option>
-        <option value="Rare">Rare</option>
-        <option value="Epic">Epic</option>
-        <option value="Legendary">Legendary</option>
+      <select name="rarity" selected="{{ request.form['rarity'] or weapon['rarity'] }}" required>
+        {% if request.form['rarity'] == 'Common' or weapon['rarity'] == 'Common' %}
+          <option selected value="Common">Common</option>
+        {% else %}
+          <option value="Common">Common</option>
+        {% endif %}
+        {% if request.form['rarity'] == 'Uncommon' or weapon['rarity'] == 'Uncommon' %}
+          <option selected value="Uncommon">Uncommon</option>
+        {% else %}
+          <option value="Uncommon">Uncommon</option>
+        {% endif %}
+        {% if request.form['rarity'] == 'Rare' or weapon['rarity'] == 'Rare' %}
+          <option selected value="Rare">Rare</option>
+        {% else %}
+          <option value="Rare">Rare</option>
+        {% endif %}
+        {% if request.form['rarity'] == 'Epic' or weapon['rarity'] == 'Epic' %}
+          <option selected value="Epic">Epic</option>
+        {% else %}
+          <option value="Epic">Epic</option>
+        {% endif %}
+        {% if request.form['rarity'] == 'Legendary' or weapon['rarity'] == 'Legendary' %}
+          <option selected value="Legendary">Legendary</option>
+        {% else %}
+          <option value="Legendary">Legendary</option>
+        {% endif %}
       </select>
     </div>
     <div class="form-group">
       <label for="zone_name">Location: </label>
-      <select name="zone_name" value="{{ request.form['zone_name'] or zone_name }}" required>
+      <select name="zone_name" required>
         {% for name in zone_names %}
+          {% if name[0] == request.form['zone_name'] or name[0] == zone_name %}
+            <option selected value="{{ name[0] }}">{{ name[0] }}</option>
+          {% else %}
           <option value="{{ name[0] }}">{{ name[0] }}</option>
+          {% endif %}
         {% endfor %}
       </select>
     </div>
