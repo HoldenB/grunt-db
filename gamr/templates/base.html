@@ -6,7 +6,7 @@
 <title>{% block title %}{% endblock %} - GamrDB</title>
 <nav>
   <h1 style="display:inline"><a href="{{ url_for('characters.character_index') }}"> GamrDB</h1></a>
-  {% block link1 %}{% endblock %}{% block link2 %}{% endblock %}
+  {% block link1 %}{% endblock %}{% block link2 %}{% endblock %}{% block link3 %}{% endblock %}
   <ul>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>

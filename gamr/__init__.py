@@ -4,6 +4,7 @@ from flask import Flask
 from . import db
 from . import auth
 from . import characters
+from . import tables
 from . import weapons
 from . import zones
 
@@ -35,6 +36,7 @@ def create_app(test_config=None):
     # Register blueprints
     app.register_blueprint(auth.bp)
     app.register_blueprint(characters.bp)
+    app.register_blueprint(tables.bp)
     app.register_blueprint(weapons.bp)
     app.register_blueprint(zones.bp)
 

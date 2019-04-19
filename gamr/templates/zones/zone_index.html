@@ -1,10 +1,13 @@
 {% extends 'base.html' %}
 
 {% block link1 %}
-<h1 class="link-text-1"><a href="{{ url_for('characters.character_index') }}">Characters</h1></a>
+  <h1 class="link-text-1"><a href="{{ url_for('characters.character_index') }}">Characters</h1></a>
 {% endblock %}
 {% block link2 %}
-<h1 class="link-text-1"><a href="{{ url_for('weapons.weapon_index') }}">Weapons</h1></a>
+  <h1 class="link-text-1"><a href="{{ url_for('weapons.weapon_index') }}">Weapons</h1></a>
+{% endblock %}
+{% block link3 %}
+  <h1 class="link-text-1"><a href="{{ url_for('tables.table_index') }}">Tables</h1></a>
 {% endblock %}
 
 {% block header %}
