@@ -8,6 +8,29 @@
   <form method="post">
     <label for="character_name">Character Name</label>
     <input name="character_name" id="character_name" value="{{ request.form['character_name'] }}" required>
+    <div class="form-group">
+        <label for="weapon_level">Character Level: </label>
+        <input type="number" name="character_level" min="1" max="120"
+          value="{{ request.form['character_level'] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="hours_played">Hours Played: </label>
+        <input type="number" step="0.1" name="hours_played" min="1" max="9999"
+          value="{{ request.form['hours_played'] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="character_kills">Player Kills: </label>
+        <input type="number" name="character_kills" min="1" max="9999"
+          value="{{ request.form['character_kills'] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="equipped_weapon">Equipped Weapon: </label>
+        <select name="equipped_weapon" required>
+          {% for name in weapon_names %}
+            <option value="{{ name[0] }}">{{ name[0] }}</option>
+          {% endfor %}
+        </select>
+      </div>
     <input type="submit" value="Save">
   </form>
 {% endblock %}
