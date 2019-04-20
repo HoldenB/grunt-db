@@ -10,6 +10,28 @@ from gamr.db import get_db
 bp = Blueprint('characters', __name__)
 
 
+class CharacterRequest:
+    def __init__(self, request):
+        self.character_name = request.form['character_name']
+        self.character_level = request.form['character_level']
+        self.hours_played = request.form['hours_played']
+        self.character_kills = request.form['character_kills']
+        self.equipped_weapon_id = self.__e_wep_id(request.form['equipped_weapon'])
+        
+    def __e_wep_id(self, name):
+        e_wep_id = get_db().execute(
+            'SELECT id FROM equipped_weapon WHERE weapon_name=?',
+            (name,)
+        ).fetchone()
+
+        # We expect a single column from the sqlite object
+        return e_wep_id[0]
+
+    def valid(self):
+        return(self.character_name and self.character_level and self.hours_played
+                and self.character_kills and self.equipped_weapon_id)
+
+
 def get_character(id, check_user=True):
     character = get_db().execute(
         'SELECT c.id, e_wep_id, c.user_id, created, hours_played, character_name,'
@@ -51,11 +73,11 @@ def character_index():
 @login_required
 def create():
     if request.method == 'POST':
-        character_name = request.form['character_name']
+        character = CharacterRequest(request)
         error = None
 
-        if not character_name:
-            error = 'Character name is required.'
+        if not character.valid():
+            error = 'All fields are required to create a character.'
 
         if error is not None:
             flash(error)
@@ -67,13 +89,25 @@ def create():
                 'INSERT INTO character (e_wep_id, user_id, hours_played, character_name,'
                 ' character_level, character_kills)'
                 ' VALUES (?, ?, ?, ?, ?, ?)',
-                (1, g.user['id'], 0, character_name, 1, 0)
+                (character.equipped_weapon_id, g.user['id'], character.hours_played,
+                    character.character_name, character.character_level,
+                    character.character_kills)
             )
             db.commit()
 
             return redirect(url_for('characters.character_index'))
 
-    return render_template('characters/character_create.html')
+    # If the request method is GET request, we will queue for our weapon list
+    # and populate the available weapons to allow the character to equip
+    db = get_db()
+    # Query for weapon data
+    weapon_names = db.execute (
+        'SELECT e.weapon_name'
+        ' FROM equipped_weapon e'
+    ).fetchall()
+
+    return render_template('characters/character_create.html',
+        weapon_names=weapon_names)
 
 
 @bp.route('/<int:id>/update', methods=('GET', 'POST'))
@@ -82,25 +116,39 @@ def update(id):
     character = get_character(id)
 
     if request.method == 'POST':
-        character_name = request.form['character_name']
+        character = CharacterRequest(request)
         error = None
 
-        if not character_name:
-            error = 'Character name is required.'
+        if not character.valid():
+            error = 'All fields are required to update a character.'
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                'UPDATE character SET character_name = ?'
+                'UPDATE character SET e_wep_id = ?, hours_played = ?,'
+                ' character_name = ?, character_level = ?, character_kills = ?'
                 ' WHERE id = ?',
-                (character_name, id)
+                (character.equipped_weapon_id, character.hours_played,
+                    character.character_name, character.character_level,
+                    character.character_kills, id)
             )
             db.commit()
             return redirect(url_for('characters.character_index'))
 
-    return render_template('characters/character_update.html', character=character)
+    weapon_name = get_db().execute(
+        'SELECT weapon_name FROM equipped_weapon WHERE id=?',
+        (character['e_wep_id'],)
+    ).fetchone()
+
+    weapon_names = get_db().execute(
+        'SELECT e.weapon_name '
+        ' FROM equipped_weapon e'
+    ).fetchall()
+
+    return render_template('characters/character_update.html',
+        character=character, weapon_name=weapon_name[0], weapon_names=weapon_names)
 
 
 @bp.route('/<int:id>/delete', methods=('POST',))

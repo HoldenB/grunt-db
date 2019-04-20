@@ -9,9 +9,36 @@
     <label for="character_name">Character Name</label>
     <input name="character_name" id="character_name"
       value="{{ request.form['character_name'] or character['character_name'] }}" required>
-    <input type="submit" value="Save">
-  </form>
-  <hr>
+    <div class="form-group">
+        <label for="weapon_level">Character Level: </label>
+        <input type="number" name="character_level" min="1" max="120"
+          value="{{ request.form['character_level'] or character['character_level'] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="hours_played">Hours Played: </label>
+        <input type="number" step="0.1" name="hours_played" min="1" max="9999"
+          value="{{ request.form['hours_played'] or character['hours_played'] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="character_kills">Player Kills: </label>
+        <input type="number" name="character_kills" min="1" max="9999"
+          value="{{ request.form['character_kills'] or character['character_kills'] }}" required>
+    </div>
+    <div class="form-group">
+        <label for="equipped_weapon">Equipped Weapon: </label>
+        <select name="equipped_weapon" required>
+          {% for name in weapon_names %}
+            {% if name[0] == request.form['weapon_name'] or name[0] == weapon_name %}
+              <option selected value="{{ name[0] }}">{{ name[0] }}</option>
+            {% else %}
+            <option value="{{ name[0] }}">{{ name[0] }}</option>
+            {% endif %}
+          {% endfor %}
+        </select>
+      </div>
+      <input type="submit" value="Save">
+    </form>
+    <hr>
   <form action="{{ url_for('characters.delete', id=character['id']) }}" method="post">
     <input class="danger" type="submit" value="Delete" onclick="return confirm('Are you sure you want to delete this character?');">
   </form>
