@@ -12,4 +12,20 @@ bp = Blueprint('tables', __name__)
 
 @bp.route('/tables')
 def table_index():
-    return render_template('tables.html')
+    db = get_db()
+
+    characters = db.execute(
+        'SELECT * FROM character'
+    ).fetchall()
+
+    weapons = db.execute(
+        'SELECT * FROM equipped_weapon'
+    ).fetchall()
+
+    zones = db.execute(
+        'SELECT * FROM zone'
+    ).fetchall()
+
+    return render_template('tables.html',
+        characters=characters, weapons=weapons, zones=zones)
+
