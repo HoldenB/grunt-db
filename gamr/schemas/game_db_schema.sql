@@ -78,11 +78,11 @@ VALUES ('2', 'Prateek''s Mighty Hammer', '100', 'Hammer', 'Epic');
 
 -- Premade wep 3
 INSERT INTO equipped_weapon (zone_id, weapon_name, weapon_level, weapon_type, rarity)
-VALUES ('3', ' Dank-A-Lank MayMays', '80', 'Sword', 'Legendary');
+VALUES ('3', 'Thor''s Hammer', '80', 'Hammer', 'Legendary');
 
 -- Premade wep 4
 INSERT INTO equipped_weapon (zone_id, weapon_name, weapon_level, weapon_type, rarity)
-VALUES ('3', 'Finger Gun', '20', 'Gun', 'Common');
+VALUES ('3', 'Dagger of Agility', '20', 'Dagger', 'Rare');
 
 ------------------------------------------------------------------------------------------
 -- Demo user 1
@@ -90,18 +90,18 @@ INSERT INTO user (username, password)
 VALUES ('Jack', 'Jack');
 -- Demo character 1
 INSERT INTO character (e_wep_id, user_id, hours_played, character_name, character_level, character_kills)
-VALUES ('2', '1', '10', 'BWWorBBW', '100', '200');
+VALUES ('2', '1', '10', 'JackTheManiac', '100', '200');
 
 -- Demo user 2
 INSERT INTO user (username, password)
 VALUES ('SBAV', 'SBAV');
 -- Demo character 2
 INSERT INTO character (e_wep_id, user_id, hours_played, character_name, character_level, character_kills)
-VALUES ('3', '2', '60', 'AKTheMemeLord', '80', '1000');
+VALUES ('3', '2', '60', 'LordAK', '80', '1000');
 
 -- Demo user 3
 INSERT INTO user (username, password)
 VALUES ('T8', 'T8');
 -- Demo character 3
 INSERT INTO character (e_wep_id, user_id, hours_played, character_name, character_level, character_kills)
-VALUES ('4', '3', '90', 'BarryMcKokinner', '90', '850');
+VALUES ('4', '3', '90', 'McBarry', '90', '850');
