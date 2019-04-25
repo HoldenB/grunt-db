@@ -53,6 +53,22 @@ def get_character(id, check_user=True):
     return character
 
 
+def prune_characters(db):
+    selected_characters_for_prune = db.execute(
+        'SELECT c.id'
+        ' FROM character c'
+        ' EXCEPT'
+        ' SELECT c.id'
+        ' FROM character c JOIN user u JOIN equipped_weapon e JOIN zone z'
+        ' ON c.user_id = u.id AND c.e_wep_id = e.id AND e.zone_id = z.id'
+    ).fetchall()
+    
+    # Use the list to consume the returned iterator
+    list(map (lambda x: db.execute('DELETE FROM character WHERE id = ?', (x['id'],)),
+        selected_characters_for_prune))
+    db.commit()
+
+
 @bp.route('/')
 def character_index():
     db = get_db()
@@ -65,6 +81,12 @@ def character_index():
         ' ON c.user_id = u.id AND c.e_wep_id = e.id AND e.zone_id = z.id'
         ' ORDER BY c.created DESC'
     ).fetchall()
+
+    # TODO: Check to see if we need to re-weapon any characters when we index. This means if a
+    # weapon has been deleted, we still need to display the character within the index
+    # page, but the character will need a new weapon
+    # For now we'll just prune the characters who's weapons have been deleted
+    prune_characters(db)
 
     return render_template('characters/character_index.html', characters=characters)
 

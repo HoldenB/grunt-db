@@ -53,6 +53,21 @@ def get_equipped_weapon(id, check_weapon=True):
 
     return weapon
 
+def prune_deleted_weapons (db):
+    selected_weapons_for_prune = db.execute(
+        'SELECT e.id'
+        ' FROM equipped_weapon e'
+        ' EXCEPT'
+        ' SELECT e.id'
+        ' FROM equipped_weapon e JOIN zone z'
+        ' ON e.zone_id = z.id'
+    ).fetchall()
+    
+    # Use the list to consume the returned iterator
+    list(map (lambda x: db.execute('DELETE FROM equipped_weapon WHERE id = ?', (x['id'],)),
+        selected_weapons_for_prune))
+    db.commit()
+
 
 @bp.route('/weapons')
 def weapon_index():
@@ -65,6 +80,12 @@ def weapon_index():
         ' ON e.zone_id = z.id'
         ' ORDER BY e.created DESC'
     ).fetchall()
+
+    # We need to also check the weapons that exist outside of created zones. If a zone
+    # is removed before a weapon, the weapon will still exist within the weapons
+    # table, we need to handle this and remove the weapon because the zone no
+    # longer exists
+    prune_deleted_weapons(db)
 
     return render_template('weapons/weapon_index.html', weapons=weapons)
 
