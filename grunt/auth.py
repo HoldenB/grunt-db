@@ -6,7 +6,7 @@ from flask import (
 
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from gamr.db import get_db
+from grunt.db import get_db
 
 # Auth blueprint prefix
 bp = Blueprint('auth', __name__, url_prefix='/auth')

@@ -1,4 +1,4 @@
-from gamr import create_app
+from grunt import create_app
 
 app = create_app()
 

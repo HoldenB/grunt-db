@@ -1,5 +1,5 @@
-include gamr/schemas/game_db_schema.sql
-graft gamr/static
-graft gamr/schemas
-graft gamr/templates
+include grunt/schemas/game_db_schema.sql
+graft grunt/static
+graft grunt/schemas
+graft grunt/templates
 global-exclude *.pyc

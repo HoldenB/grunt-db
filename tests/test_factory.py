@@ -1,4 +1,5 @@
-from gamr import create_app
+from grunt import create_app
+
 
 def test_config():
     assert not create_app().testing

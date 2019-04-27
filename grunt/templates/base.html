@@ -3,9 +3,9 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='base.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='responsive-table.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='user-profiles-list-basic.css') }}">
-<title>{% block title %}{% endblock %} - GamrDB</title>
+<title>{% block title %}{% endblock %} - Grunt</title>
 <nav>
-  <h1 style="display:inline"><a href="{{ url_for('characters.character_index') }}"> GamrDB</h1></a>
+  <h1 style="display:inline"><a href="{{ url_for('characters.character_index') }}"> Grunt</h1></a>
   {% block link1 %}{% endblock %}{% block link2 %}{% endblock %}{% block link3 %}{% endblock %}
   <ul>
     {% if g.user %}

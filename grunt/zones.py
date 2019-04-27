@@ -4,8 +4,8 @@ from flask import (
 
 from werkzeug.exceptions import abort
 
-from gamr.auth import login_required
-from gamr.db import get_db
+from grunt.auth import login_required
+from grunt.db import get_db
 
 
 bp = Blueprint('zones', __name__)

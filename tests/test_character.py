@@ -1,5 +1,5 @@
 import pytest
-from gamr.db import get_db
+from grunt.db import get_db
 
 
 def test_character_index(client, auth):

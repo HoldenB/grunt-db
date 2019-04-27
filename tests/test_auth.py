@@ -1,6 +1,6 @@
 import pytest
 from flask import g, session
-from gamr.db import get_db
+from grunt.db import get_db
 
 
 def test_register(client, app):

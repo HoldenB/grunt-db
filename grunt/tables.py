@@ -4,7 +4,7 @@ from flask import (
 
 from werkzeug.exceptions import abort
 
-from gamr.db import get_db
+from grunt.db import get_db
 
 
 bp = Blueprint('tables', __name__)
